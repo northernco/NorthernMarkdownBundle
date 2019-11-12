@@ -1,0 +1,14 @@
+{
+    "name": "northern/markdown-bundle",
+    "description": "Symfony bundle for including parsedown for converting markdown to html",
+    "type": "symfony-bundle",
+    "require": {
+        "symfony/framework-bundle": "^4.0",
+        "erusev/parsedown": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Northern\\MarkdownBundle\\": ""
+        }
+    }
+}
