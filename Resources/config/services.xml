@@ -6,7 +6,16 @@
 
     <services>
         <service id="northern_markdown.markdown_parser" class="Northern\MarkdownBundle\Service\MarkdownParser" public="false" />
+        <service id="northern_markdown.markdown_repository" class="Northern\MarkdownBundle\Service\MarkdownRepository" public="false">
+            <argument type="service" id="northern_markdown.markdown_parser" />
+            <argument type="service" id="cache.northern_markdown" />
+        </service>
+
+        <service id="cache.northern_markdown" parent="cache.system" public="false">
+            <tag name="cache.pool" />
+        </service>
 
         <service id="Northern\MarkdownBundle\Service\MarkdownParserInterface" alias="northern_markdown.markdown_parser" public="false" />
+        <service id="Northern\MarkdownBundle\Service\MarkdownRepositoryInterface" alias="northern_markdown.markdown_repository" public="false" />
     </services>
 </container>
