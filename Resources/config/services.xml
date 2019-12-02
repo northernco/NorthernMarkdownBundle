@@ -19,8 +19,12 @@
         <service id="Northern\MarkdownBundle\Service\MarkdownRepositoryInterface" alias="northern_markdown.markdown_repository" public="false" />
 
         <service id="northern_markdown.markdown_twig_filter" class="Northern\MarkdownBundle\Twig\Extension\MarkdownExtension" public="false">
-            <argument type="service" id="northern_markdown.markdown_repository" />
             <tag name="twig.extension" />
+        </service>
+
+        <service id="northern_markdown.markdown_twig_filter_runtime" class="Northern\MarkdownBundle\Twig\Extension\MarkdownRuntime" public="false">
+            <argument type="service" id="northern_markdown.markdown_repository" />
+            <tag name="twig.runtime" />
         </service>
     </services>
 </container>
