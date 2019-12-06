@@ -55,3 +55,48 @@ return [
     Northern\MarkdownBundle\NorthernMarkdownBundle::class => ['all' => true],
 ];
 ```
+
+Usage
+=====
+
+Once the bundle is installed, you can autowire a `MarkdownRepositoryInterface`
+or `MarkdownParserInterface` into any service or controller. It's recommended
+to use the `MarkdownRepositoryInterface` as this will cache the results to make
+subsequent calls much faster.
+
+Example:
+
+```php
+use Northern\MarkdownBundle\Service\MarkdownParserInterface;
+use Northern\MarkdownBundle\Service\MarkdownRepositoryInterface;
+
+class Service {
+    private $parser;
+
+    private $repository;
+
+    public function __construct(
+        MarkdownParserInterface $parser,
+        MarkdownRepositoryInterface $repository
+    ) {
+        $this->parser     = $parser;
+        $this->repository = $repository;
+    }
+
+    public function someMethod()
+    {
+        $text = '# Test';
+
+        // Converts the markdown
+        $html = $this->parser->convertMarkdownToHtml($text);
+        // or convert and cache the markdown
+        $html = $this->repository->getHtmlFromMarkdown($text);
+    }
+}
+```
+
+In Twig, you can use the `md2html` filter:
+
+```twig
+{{ markdown_string|md2html }}
+```
