@@ -15,7 +15,7 @@ class MarkdownParser implements MarkdownParserInterface
             [
                 'extensions' => ['basic', 'list', 'table', 'image', 'code', 'extra'],
                 'tags'       => [
-                    'code' => ['allowed_attributes' => 'class'],
+                    'code' => ['allowed_attributes' => ['class']],
                 ],
             ]
         );
