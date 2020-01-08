@@ -6,13 +6,23 @@ class MarkdownParser implements MarkdownParserInterface
 {
     private $parsedown;
 
+    private $sanitizer;
+
     public function __construct()
     {
         $this->parsedown = new \Parsedown();
+        $this->sanitizer = \HtmlSanitizer\Sanitizer::create(
+            [
+                'extensions' => ['basic', 'list', 'table', 'image', 'code', 'extra'],
+            ]
+        );
     }
 
     public function convertMarkdownToHtml(string $markdown): string
     {
-        return $this->parsedown->text($markdown);
+        $html = $this->parsedown->text($markdown);
+        $html = $this->sanitizer->sanitize($html);
+
+        return $html;
     }
 }
