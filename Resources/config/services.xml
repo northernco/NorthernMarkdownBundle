@@ -11,7 +11,7 @@
             <argument type="service" id="cache.northern_markdown" />
         </service>
 
-        <service id="cache.northern_markdown" parent="cache.system" public="false">
+        <service id="cache.northern_markdown" parent="cache.app" public="false">
             <tag name="cache.pool" />
         </service>
 
