@@ -1,5 +1,5 @@
 {
-    "name": "northern/markdown-bundle",
+    "name": "northernco/markdown-bundle",
     "description": "Symfony bundle for including parsedown for converting markdown to html",
     "type": "symfony-bundle",
     "require": {
