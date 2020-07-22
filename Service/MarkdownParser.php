@@ -13,8 +13,9 @@ class MarkdownParser implements MarkdownParserInterface
         $this->parsedown = new \Parsedown();
         $this->sanitizer = \HtmlSanitizer\Sanitizer::create(
             [
-                'extensions' => ['basic', 'list', 'table', 'image', 'code', 'extra'],
-                'tags'       => [
+                'max_input_length' => 1000000,
+                'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra'],
+                'tags'             => [
                     'code' => ['allowed_attributes' => ['class']],
                     'th'   => ['allowed_attributes' => ['style']],
                     'td'   => ['allowed_attributes' => ['style']],
