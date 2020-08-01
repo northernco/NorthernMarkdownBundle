@@ -16,10 +16,32 @@ class MarkdownParser implements MarkdownParserInterface
                 'max_input_length' => 1000000,
                 'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra'],
                 'tags'             => [
+                    'a'    => [
+                        'allowed_schemes'    => ['http', 'https', null],
+                        'allowed_attributes' => ['href', 'name', 'title'],
+                    ],
                     'code' => ['allowed_attributes' => ['class']],
                     'em'   => ['allowed_attributes' => ['class']],
                     'th'   => ['allowed_attributes' => ['style']],
                     'td'   => ['allowed_attributes' => ['style']],
+                    'h1'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
+                    'h2'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
+                    'h3'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
+                    'h4'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
+                    'h5'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
+                    'h6'   => [
+                        'allowed_attributes' => ['id', 'name'],
+                    ],
                 ],
             ]
         );
