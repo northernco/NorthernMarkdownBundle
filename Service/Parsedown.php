@@ -4,7 +4,7 @@ namespace Northern\MarkdownBundle\Service;
 
 class Parsedown extends \Parsedown
 {
-    protected function blockListComplete(array $Block)
+    protected function blockListComplete(array $Block): ?array
     {
         $list = parent::blockListComplete($Block);
 
