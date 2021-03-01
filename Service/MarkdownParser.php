@@ -2,6 +2,9 @@
 
 namespace Northern\MarkdownBundle\Service;
 
+use HtmlSanitizer\SanitizerBuilder;
+use Northern\MarkdownBundle\Sanitizer\InputExtension;
+
 class MarkdownParser implements MarkdownParserInterface
 {
     private $parsedown;
@@ -10,11 +13,12 @@ class MarkdownParser implements MarkdownParserInterface
 
     public function __construct()
     {
-        $this->parsedown = new \Parsedown();
-        $this->sanitizer = \HtmlSanitizer\Sanitizer::create(
+        $builder = SanitizerBuilder::createDefault();
+        $builder->registerExtension(new InputExtension());
+        $sanitizer = $builder->build(
             [
                 'max_input_length' => 1000000,
-                'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra'],
+                'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra', 'input'],
                 'tags'             => [
                     'a'    => [
                         'allowed_schemes'    => ['http', 'https', null],
@@ -45,6 +49,9 @@ class MarkdownParser implements MarkdownParserInterface
                 ],
             ]
         );
+
+        $this->parsedown = new Parsedown();
+        $this->sanitizer = $sanitizer;
     }
 
     public function convertMarkdownToHtml(string $markdown): string
