@@ -21,6 +21,7 @@ class InputNodeVisitor extends AbstractNodeVisitor implements NamedNodeVisitorIn
     {
         return [
             'type',
+            'checked',
         ];
     }
 
