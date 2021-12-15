@@ -2,16 +2,19 @@
 
 namespace Northern\MarkdownBundle\Service;
 
+use HtmlSanitizer\Sanitizer;
+use HtmlSanitizer\SanitizerInterface;
+
 class MarkdownParser implements MarkdownParserInterface
 {
-    private $parsedown;
+    private \Parsedown $parsedown;
 
-    private $sanitizer;
+    private SanitizerInterface $sanitizer;
 
     public function __construct()
     {
         $this->parsedown = new \Parsedown();
-        $this->sanitizer = \HtmlSanitizer\Sanitizer::create(
+        $this->sanitizer = Sanitizer::create(
             [
                 'max_input_length' => 1000000,
                 'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra'],

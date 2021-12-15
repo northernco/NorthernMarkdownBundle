@@ -2,13 +2,15 @@
 
 namespace Northern\MarkdownBundle\Service;
 
+use Symfony\Contracts\Cache\CacheInterface;
+
 class MarkdownRepository implements MarkdownRepositoryInterface
 {
-    private $parser;
+    private MarkdownParserInterface $parser;
 
-    private $cache;
+    private CacheInterface $cache;
 
-    public function __construct(MarkdownParserInterface $parser, \Symfony\Contracts\Cache\CacheInterface $cache)
+    public function __construct(MarkdownParserInterface $parser, CacheInterface $cache)
     {
         $this->parser = $parser;
         $this->cache  = $cache;
@@ -33,6 +35,6 @@ class MarkdownRepository implements MarkdownRepositoryInterface
 
     private function generateCacheKey(string $text): string
     {
-        return hash('sha256', $text);
+        return \hash('sha256', $text);
     }
 }
