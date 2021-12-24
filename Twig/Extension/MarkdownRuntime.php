@@ -2,11 +2,14 @@
 
 namespace Northern\MarkdownBundle\Twig\Extension;
 
-class MarkdownRuntime implements \Twig\Extension\RuntimeExtensionInterface
-{
-    private $markdownRepository;
+use Northern\MarkdownBundle\Service\MarkdownRepositoryInterface;
+use Twig\Extension\RuntimeExtensionInterface;
 
-    public function __construct(\Northern\MarkdownBundle\Service\MarkdownRepositoryInterface $markdownRepository)
+class MarkdownRuntime implements RuntimeExtensionInterface
+{
+    private MarkdownRepositoryInterface $markdownRepository;
+
+    public function __construct(MarkdownRepositoryInterface $markdownRepository)
     {
         $this->markdownRepository = $markdownRepository;
     }

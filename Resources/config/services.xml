@@ -2,8 +2,7 @@
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services
-        https://symfony.com/schema/dic/services/services-1.0.xsd">
-
+               https://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
         <service id="northern_markdown.markdown_parser" class="Northern\MarkdownBundle\Service\MarkdownParser" public="false" />
         <service id="northern_markdown.markdown_repository" class="Northern\MarkdownBundle\Service\MarkdownRepository" public="false">
