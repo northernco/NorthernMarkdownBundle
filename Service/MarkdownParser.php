@@ -2,52 +2,26 @@
 
 namespace Northern\MarkdownBundle\Service;
 
-use HtmlSanitizer\Sanitizer;
-use HtmlSanitizer\SanitizerInterface;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
+use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 class MarkdownParser implements MarkdownParserInterface
 {
     private \Parsedown $parsedown;
 
-    private SanitizerInterface $sanitizer;
+    private HtmlSanitizer $sanitizer;
 
     public function __construct()
     {
         $this->parsedown = new \Parsedown();
-        $this->sanitizer = Sanitizer::create(
-            [
-                'max_input_length' => 1000000,
-                'extensions'       => ['basic', 'list', 'table', 'image', 'code', 'extra'],
-                'tags'             => [
-                    'a'    => [
-                        'allowed_schemes'    => ['http', 'https', null],
-                        'allowed_attributes' => ['href', 'name', 'title'],
-                    ],
-                    'code' => ['allowed_attributes' => ['class']],
-                    'em'   => ['allowed_attributes' => ['class']],
-                    'th'   => ['allowed_attributes' => ['style']],
-                    'td'   => ['allowed_attributes' => ['style']],
-                    'h1'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                    'h2'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                    'h3'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                    'h4'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                    'h5'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                    'h6'   => [
-                        'allowed_attributes' => ['id', 'name'],
-                    ],
-                ],
-            ]
-        );
+
+        $sanitizerConfig = new HtmlSanitizerConfig();
+        $sanitizerConfig = $sanitizerConfig->withMaxInputLength(1_000_000);
+        $sanitizerConfig = $sanitizerConfig->allowSafeElements();
+        $sanitizerConfig = $sanitizerConfig->allowAttribute('class', '*');
+        $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
+
+        $this->sanitizer = new HtmlSanitizer($sanitizerConfig);
     }
 
     public function convertMarkdownToHtml(string $markdown): string
