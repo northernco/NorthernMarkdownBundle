@@ -10,7 +10,6 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('northern_markdown');
-
         $treeBuilder->getRootNode()
                     ->children()
                         ->booleanNode('allow_relative_links')
