@@ -26,7 +26,6 @@ class MarkdownParser implements MarkdownParserInterface
 
         $sanitizerConfig = $sanitizerConfig->allowAttribute('class', '*');
         $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
-        $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
 
         $this->sanitizer = new HtmlSanitizer($sanitizerConfig);
     }
