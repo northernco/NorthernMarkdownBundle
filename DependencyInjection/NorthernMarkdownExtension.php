@@ -2,22 +2,19 @@
 
 namespace Northern\MarkdownBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 
-class NorthernMarkdownExtension extends Extension
+class NorthernMarkdownExtension extends ConfigurableExtension
 {
-    public function load(array $configs, ContainerBuilder $container)
+    protected function loadInternal(array $mergedConfig, ContainerBuilder $container): void
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
 
-        $configuration = new Configuration();
-        $config        = $this->processConfiguration($configuration, $configs);
-
-        $maintenanceSubscriberDefinition = $container->getDefinition('northern_markdown.markdown_parser');
-        $maintenanceSubscriberDefinition->setArgument('$allowRelativeLinks', $config['allow_relative_links']);
+        $markdownParserDefinition = $container->getDefinition('northern_markdown.markdown_parser');
+        $markdownParserDefinition->setArgument('$allowRelativeLinks', $mergedConfig['allow_relative_links']);
     }
 }
