@@ -13,5 +13,11 @@ class NorthernMarkdownExtension extends Extension
     {
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.xml');
+
+        $configuration = new Configuration();
+        $config        = $this->processConfiguration($configuration, $configs);
+
+        $maintenanceSubscriberDefinition = $container->getDefinition('northern_markdown.markdown_parser');
+        $maintenanceSubscriberDefinition->setArgument('$allowRelativeLinks', $config['allow_relative_links']);
     }
 }

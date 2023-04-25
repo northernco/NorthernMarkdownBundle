@@ -11,14 +11,21 @@ class MarkdownParser implements MarkdownParserInterface
 
     private HtmlSanitizer $sanitizer;
 
-    public function __construct()
-    {
+    public function __construct(
+        bool $allowRelativeLinks
+    ) {
         $this->parsedown = new \Parsedown();
 
         $sanitizerConfig = new HtmlSanitizerConfig();
         $sanitizerConfig = $sanitizerConfig->withMaxInputLength(1_000_000);
         $sanitizerConfig = $sanitizerConfig->allowSafeElements();
+
+        if ($allowRelativeLinks) {
+            $sanitizerConfig = $sanitizerConfig->allowRelativeLinks();
+        }
+
         $sanitizerConfig = $sanitizerConfig->allowAttribute('class', '*');
+        $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
         $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
 
         $this->sanitizer = new HtmlSanitizer($sanitizerConfig);
