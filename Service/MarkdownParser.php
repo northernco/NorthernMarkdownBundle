@@ -7,14 +7,14 @@ use Symfony\Component\HtmlSanitizer\HtmlSanitizerConfig;
 
 class MarkdownParser implements MarkdownParserInterface
 {
-    private \Parsedown $parsedown;
+    private Parsedown $parsedown;
 
     private HtmlSanitizer $sanitizer;
 
     public function __construct(
         bool $allowRelativeLinks
     ) {
-        $this->parsedown = new \Parsedown();
+        $this->parsedown = new Parsedown();
 
         $sanitizerConfig = new HtmlSanitizerConfig();
         $sanitizerConfig = $sanitizerConfig->withMaxInputLength(1_000_000);
@@ -26,6 +26,7 @@ class MarkdownParser implements MarkdownParserInterface
 
         $sanitizerConfig = $sanitizerConfig->allowAttribute('class', '*');
         $sanitizerConfig = $sanitizerConfig->allowAttribute('style', '*');
+        $sanitizerConfig = $sanitizerConfig->allowElement('input', ['type', 'checked', 'class']);
 
         $this->sanitizer = new HtmlSanitizer($sanitizerConfig);
     }
