@@ -8,11 +8,12 @@ class Parsedown extends \Parsedown
 {
     /**
      * @param array<string, mixed> $line
+     * @param array<string, mixed>|null $currentBlock
      * @return array<string, mixed>|null
      */
-    protected function blockList($line): ?array
+    protected function blockList($line, ?array $currentBlock = null): ?array
     {
-        $block = parent::blockList($line);
+        $block = parent::blockList($line, $currentBlock);
 
         if ($block === null) {
             return null;
